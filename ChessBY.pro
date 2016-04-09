@@ -1,20 +1,21 @@
 HEADERS += \
     board.h \
-    stone.h \
-    singlegame.h \
-    Step.h \
+    choosedlg.h \
     ctrlpanel.h \
     mainwnd.h \
-    choosedlg.h
+    singlegame.h \
+    Step.h \
+    stone.h
 
 SOURCES += \
-    main.cpp \
     board.cpp \
-    stone.cpp \
+    choosedlg.cpp \
+    ctrlpanel.cpp \
+    main.cpp \
+    mainwnd.cpp \
     singlegame.cpp \
     Step.cpp \
-    ctrlpanel.cpp \
-    mainwnd.cpp \
-    choosedlg.cpp
+    stone.cpp
 
 QT += widgets gui
+

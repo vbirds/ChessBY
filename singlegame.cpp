@@ -4,8 +4,6 @@
 SingleGame::SingleGame()
 {
     this->_level = 4;
-
-
 }
 
 void SingleGame::click(int id, int row, int col)
@@ -80,9 +78,92 @@ Step* SingleGame::getBestMove()
     return ret;
 }
 
+void SingleGame::judgedOver(int id, int &minRow, int &maxRow, int &minCol, int &maxCol)
+{
+    minRow = (minRow < 0) ? _s[id]._row : minRow;
+    maxRow = (maxRow >9 ) ? _s[id]._row : maxRow;
+    minCol = (minCol < 0) ? _s[id]._col : minCol;
+    maxCol = (maxCol < 0) ? _s[id]._col : maxCol;
+}
+
+void SingleGame::getPossibleMove(int id, int &minRow, int &maxRow,
+                                 int &minCol, int &maxCol)
+{
+    switch (_s[id]._type) {
+    case Stone::BING:
+        minRow = _s[id]._row -1;
+        maxRow = _s[id]._row +1;
+        minCol = _s[id]._col -1;
+        maxCol = _s[id]._col +1;
+
+        judgedOver(id, minRow, maxRow, minCol, maxCol);
+        break;
+    case Stone::MA:
+        minRow = _s[id]._row -2;
+        maxRow = _s[id]._row +2;
+        minCol = _s[id]._col -2;
+        maxCol = _s[id]._col +2;
+
+        judgedOver(id, minRow, maxRow, minCol, maxCol);
+        break;
+    case Stone::PAO:
+        minRow = 0;
+        maxRow = 9;
+        minCol = 0;
+        maxCol = 8;
+        break;
+    case Stone::CHE:
+        minRow = 0;
+        maxRow = 9;
+        minCol = 0;
+        maxCol = 8;
+        break;
+    case Stone::XIANG:
+        minRow = _s[id]._row -2;
+        maxRow = _s[id]._row +2;
+        minCol = _s[id]._col -2;
+        maxCol = _s[id]._col +2;
+
+        judgedOver(id, minRow, maxRow, minCol, maxCol);
+        break;
+    case Stone::SHI:
+        if(isBottomSide(id))
+        {
+            minRow = 0;
+            maxRow = 2;
+        }
+        else
+        {
+            minRow = 7;
+            maxRow = 9;
+        }
+        minCol = 3;
+        maxCol = 5;
+
+        break;
+    case Stone::JIANG:
+        if(isBottomSide(id))
+        {
+            minRow = 0;
+            maxRow = 2;
+        }
+        else
+        {
+            minRow = 7;
+            maxRow = 9;
+        }
+        minCol = 3;
+        maxCol = 5;
+
+        break;
+    }
+}
+
 void SingleGame::getAllPossibleMove(QVector<Step *> &steps)
 {
     int min = 16, max = 32;
+    int minRow = 0, maxRow = 0;
+    int minCol = 0, maxCol = 0;
     if(this->_bRedTurn)
     {
         min = 0, max = 16;
@@ -94,6 +175,38 @@ void SingleGame::getAllPossibleMove(QVector<Step *> &steps)
         {
             continue;
         }
+
+        /*
+         * title: 优化枚举走棋步骤算法。
+         * name: jhz
+         * time: 2015/04/09
+         * scription:
+         * 1.原来的算法把整个棋盘遍历，效率太低。
+         * 2.根据棋子走棋规则的特点，优化遍历的边界，
+         *   减少遍历的次数
+        */
+        getPossibleMove(i, minRow, maxRow, minCol, maxCol);
+
+        for(int row=minRow; row < maxRow; ++row)
+        {
+            for(int col=minCol; col < maxCol; ++col)
+            {
+                int killid = getStoneId(row, col);
+                if(sameColor(killid, i))
+                {
+                    continue;
+                }
+                if(canMove(i, killid, row, col))
+                {
+                    saveStep(i, killid, row, col, steps);
+                }
+
+            }
+        }
+
+#if 0
+        /*原枚举走棋步骤算法*/
+        /*
         for(int row=0; row<9; ++row)
         {
             for(int col=0; col<8; ++col)
@@ -110,8 +223,11 @@ void SingleGame::getAllPossibleMove(QVector<Step *> &steps)
 
             }
         }
+        */
+#endif
     }
 }
+
 
 void SingleGame::fakeMove(Step *step)
 {

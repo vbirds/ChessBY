@@ -12,6 +12,8 @@ public:
 
     Step* getBestMove();
     void getAllPossibleMove(QVector<Step*>& steps);
+    void getPossibleMove(int id, int& minRow, int& maxRow, int& minCol, int& maxCol);
+    void judgedOver(int id, int& minRow, int& maxRow, int& minCol, int& maxCol);
 
     void fakeMove(Step* step);
     void unfakeMove(Step* step);
