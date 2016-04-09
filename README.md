@@ -13,6 +13,12 @@ Qt中国象棋 目前实现了人机对战，后续会添加网络对战，和�
 5. `MainWnd`类，主窗口类，这个类实现总的窗口。
 6. `ChooseDlg`类，这个类是选择对话框类，实现用户的选择对战的类型。
 
+### 优化枚举走棋步骤算法。
+#### time: 2015/04/09
+#### scription:
+1. 原来的算法把整个棋盘遍历，效率太低。
+2. 根据棋子走棋规则的特点，优化遍历的边界，减少遍历的次数
+
 程序运行图：
 
 ![选择对战类型](http://7xsc1o.com1.z0.glb.clouddn.com/qt%E4%B8%AD%E5%9B%BD%E8%B1%A1%E6%A3%8B%E9%80%89%E6%8B%A9%E5%AF%B9%E6%88%98%E7%B1%BB%E5%9E%8B.png)
@@ -20,3 +26,6 @@ Qt中国象棋 目前实现了人机对战，后续会添加网络对战，和�
 ![界面](http://7xsc1o.com1.z0.glb.clouddn.com/qt%E4%B8%AD%E5%9B%BD%E8%B1%A1%E6%A3%8B%E7%95%8C%E9%9D%A2.png)
 
 ![人机对战](http://7xsc1o.com1.z0.glb.clouddn.com/qt%E4%B8%AD%E5%9B%BD%E8%B1%A1%E6%A3%8B%E4%BA%BA%E6%9C%BA%E5%AF%B9%E6%88%98.png)
+
+
+
