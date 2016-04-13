@@ -5,7 +5,8 @@ HEADERS += \
     mainwnd.h \
     singlegame.h \
     Step.h \
-    stone.h
+    stone.h \
+    netgame.h
 
 SOURCES += \
     board.cpp \
@@ -15,7 +16,8 @@ SOURCES += \
     mainwnd.cpp \
     singlegame.cpp \
     Step.cpp \
-    stone.cpp
+    stone.cpp \
+    netgame.cpp
 
-QT += widgets gui
+QT += widgets gui network
 

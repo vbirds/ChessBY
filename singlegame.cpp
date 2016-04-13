@@ -3,7 +3,7 @@
 
 SingleGame::SingleGame()
 {
-    this->_level = 4;
+    this->_level = 5;
 }
 
 void SingleGame::click(int id, int row, int col)

@@ -11,7 +11,7 @@ public:
     explicit ChooseDlg(QWidget *parent = 0);
     ~ChooseDlg();
 
-    QPushButton* _buttons[1];
+    QPushButton* _buttons[3];
     int _selected;
 signals:
 
